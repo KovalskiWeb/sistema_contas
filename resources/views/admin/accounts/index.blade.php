@@ -20,7 +20,8 @@
                     <tr>
                         <th>Conta</th>
                         <th>Saldo</th>
-                        <th>Data</th>
+                        <th class="text-center">Data</th>
+                        <th class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +29,15 @@
                         <tr>
                             <td>{{ $account->name }}</td>
                             <td>R$ {{ number_format($account->balance, 2, ',', '.') }}</td>
-                            <td>{{ $account->created_at->format('d/m/Y') }}</td>
+                            <td class="text-center">{{ $account->created_at->format('d/m/Y') }}</td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-edit"></i> Editar
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i> Excluir
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
