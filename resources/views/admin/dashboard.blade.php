@@ -29,18 +29,17 @@
 @endsection
 
 @section('content')
-    <div class="sidebar">
-        <h4>Menu</h4>
-        <a href="{{ route('admin.accounts') }}">Contas</a>
-        <a href="#">Página 2</a>
-        <a href="#">Página 3</a>
-        <a href="#">Página 4</a>
-        <a href="#">Página 5</a>
+    <div class="container">
+        <div class="row">
+            <h1>Home - Dashboard</h1>
+        </div>
     </div>
-
-    <a class="logout-link" href="{{ route('admin.logout') }}">Deslogar</a>
 @endsection
 
 @section('footer')
-Footer
+    <div class="container">
+        <div class="row">
+            Footer
+        </div>
+    </div>
 @endsection

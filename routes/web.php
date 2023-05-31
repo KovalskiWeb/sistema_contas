@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +24,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
-    Route::get('/admin/accounts', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/accounts', [AccountController::class, 'index'])->name('admin.accounts');
+    Route::get('/admin/account', [AccountController::class, 'show'])->name('admin.account');
+    Route::post('/admin/account', [AccountController::class, 'store'])->name('admin.account.store');
+
+    Route::get('/admin/transactions', [TransactionController::class, 'index'])->name('admin.transactions');
+    Route::get('/admin/transaction', [TransactionController::class, 'show'])->name('admin.transaction');
+    Route::post('/admin/transaction', [TransactionController::class, 'store'])->name('admin.transaction');
 });
