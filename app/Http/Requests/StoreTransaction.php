@@ -13,7 +13,7 @@ class StoreTransaction extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,7 @@ class StoreTransaction extends FormRequest
     {
         return [
             'operation' => ['required'],
+            'account_id' => ['required'],
             'price' => ['required'],
             'description' => ['required'],
         ];
@@ -34,6 +35,7 @@ class StoreTransaction extends FormRequest
     {
         return [
             'operation.required' => 'Campo operação é obrigatório!',
+            'account_id.required' => 'Campo conta é obrigatório!',
             'price.required' => 'Campo valor é obrigatório!',
             'description.required' => 'Campo descrição é obrigatório!',
         ];

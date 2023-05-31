@@ -4,6 +4,12 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                @if (Session::has('error'))
+                    <div class="alert alert-danger">
+                        {{ Session::get('error') }}
+                    </div>
+                @endif
+
                 <form action="{{ route('admin.transaction.store') }}" method="POST">
                     @csrf
 
@@ -30,14 +36,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="valor">Valor:</label>
-                        <input type="text" class="form-control" name="valor" id="valor" required
-                            data-mask="#.##0,00" data-mask-reverse="true">
+                        <label for="price">Valor:</label>
+                        <input type="text" class="form-control mask-price" name="price" id="price" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="descricao">Descrição:</label>
-                        <textarea class="form-control" name="descricao" id="descricao" rows="3" required></textarea>
+                        <label for="description">Descrição:</label>
+                        <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
@@ -45,4 +50,17 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    @parent
+
+    <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.mask-price').mask('000.000.000,00', {
+                reverse: true
+            });
+        });
+    </script>
 @endsection

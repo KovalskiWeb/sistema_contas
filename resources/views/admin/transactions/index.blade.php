@@ -8,20 +8,22 @@
 
         <a href="{{ route('admin.transaction.create') }}" class="btn btn-success my-2">Cadastrar Lançamento</a>
 
-        <form action="/transacoes" method="GET">
+        <form action="{{ route('admin.transaction.search') }}" method="GET">
+            @csrf
+
             <div class="form-row">
                 <div class="col-md-4 mb-3">
-                    <label for="tipo">Tipo:</label>
-                    <select class="form-control" name="tipo" id="tipo">
-                        <option value="">Todos</option>
+                    <label for="operation">Tipo:</label>
+                    <select class="form-control" name="operation" id="operation">
+                        <option value="all">Todos</option>
                         <option value="entrada">Entrada</option>
                         <option value="saida">Saída</option>
                     </select>
                 </div>
 
                 <div class="col-md-4 mb-3">
-                    <label for="data">Data:</label>
-                    <input type="date" class="form-control" name="data" id="data">
+                    <label for="date">Data:</label>
+                    <input type="date" class="form-control" name="date" id="date">
                 </div>
 
                 <div class="col-md-4 mb-3 d-flex align-items-end">
@@ -30,34 +32,43 @@
             </div>
         </form>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Conta</th>
-                    <th>Tipo</th>
-                    <th>Valor</th>
-                    <th>Descrição</th>
-                    <th>Data</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aqui você pode usar PHP ou outras linguagens para popular a tabela com os dados das transações -->
-                <tr>
-                    <td>Fulano</td>
-                    <td>Entrada</td>
-                    <td>R$ 100,00</td>
-                    <td>Venda de produto</td>
-                    <td>2023-05-30</td>
-                </tr>
-                <tr>
-                    <td>Beltrano</td>
-                    <td>Saída</td>
-                    <td>R$ 50,00</td>
-                    <td>Despesa de transporte</td>
-                    <td>2023-05-29</td>
-                </tr>
-                <!-- ... -->
-            </tbody>
-        </table>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (Session::has('error'))
+            <div class="alert alert-danger">
+                {{ Session::get('error') }}
+            </div>
+        @endif
+
+        @if (count($transactions) > 0)
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Conta</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Descrição</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($transactions as $transaction)
+                        <tr>
+                            <td>{{ $transaction->account['name'] }}</td>
+                            <td class="{{ $transaction->operation == 'entrada' ? 'text-success' : 'text-danger' }}">{{ $transaction->operation }}</td>
+                            <td>R$ {{ number_format($transaction->price, 2, ',', '.') }}</td>
+                            <td>{{ $transaction->description }}</td>
+                            <td>{{ $transaction->created_at->format('d/m/Y') }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <p>Não há dados disponíveis.</p>
+        @endif
     </div>
 @endsection

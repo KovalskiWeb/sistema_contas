@@ -15,9 +15,9 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('account_id')->constrained('accounts');
+            $table->foreignId('account_id')->constrained('accounts')->onDelete('cascade');
             $table->string('operation');
-            $table->double('price', 10, 2)->default(0);
+            $table->decimal('price')->default(0);
             $table->text('description');
             $table->timestamps();
         });

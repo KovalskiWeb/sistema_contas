@@ -40,7 +40,6 @@ class AccountController extends Controller
         try {
             $account = $this->accountRepository->edit($id);
             if ($account) {
-                // dd('merda', $account);
                 return view('admin.accounts.storeUpdate', compact('account'));
             }
         } catch (Exception $e) {
@@ -75,6 +74,9 @@ class AccountController extends Controller
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());
+            Session::flash('error', 'Ocorreu um erro.');
+
+            return redirect()->back();
         }
     }
 
