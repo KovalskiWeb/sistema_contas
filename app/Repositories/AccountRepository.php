@@ -20,8 +20,25 @@ class AccountRepository
 
     public function store(array $data)
     {
-        $account = $this->entity->create($data);
+        return $this->entity->create($data);
+    }
+
+    public function edit(string $id)
+    {
+        return $this->entity->findOrFail($id);
+    }
+
+    public function update(string $id, array $request)
+    {
+        $account = $this->entity->find($id);
+        $account->name = $request['name'];
+        $account->save();
 
         return $account;
+    }
+
+    public function destroy(string $id)
+    {
+        return $this->entity->find($id)->delete();
     }
 }

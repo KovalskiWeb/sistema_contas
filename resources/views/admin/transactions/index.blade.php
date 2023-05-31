@@ -6,7 +6,7 @@
     <div class="container">
         <h1 class="mt-4">Listagem de Transações</h1>
 
-        <a href="{{ route('admin.transaction') }}" class="btn btn-success my-2">Cadastrar Lançamento</a>
+        <a href="{{ route('admin.transaction.create') }}" class="btn btn-success my-2">Cadastrar Lançamento</a>
 
         <form action="/transacoes" method="GET">
             <div class="form-row">
