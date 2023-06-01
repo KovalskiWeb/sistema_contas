@@ -40,14 +40,14 @@ class TransactionRepository
     public function search($request)
     {
         $operation = $request['operation'];
-        $data = $request['date'];
+        $date = $request['date'];
 
         return $this->entity
             ->when($operation !== 'all', function ($query) use ($operation) {
                 return $query->where('operation', $operation);
             })
-            ->when($data ?? false, function ($query) use ($data) {
-                return $query->whereDate('created_at', $data);
+            ->when($date ?? false, function ($query) use ($date) {
+                return $query->whereDate('created_at', $date);
             })
             ->with('account')
             ->orderByDesc('id')

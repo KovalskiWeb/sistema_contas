@@ -6,6 +6,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return redirect()->route('admin.login');
+});
+
 Route::get('/admin/login', [AuthController::class, 'index'])->name('admin.login');
 Route::post('/admin/login', [AuthController::class, 'store'])->name('login.store');
 
